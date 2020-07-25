@@ -59,7 +59,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng office = new LatLng(45.8589, 3.29365);
+        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        LatLng office = new LatLng(-34, 151);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(office, 16));
 
         enableUserLocation();

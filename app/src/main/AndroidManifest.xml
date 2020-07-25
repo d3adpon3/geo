@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".GeoFenceBroadcastReceiver"
+            android:name="com.example.geofencing.GeoFenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true"/>
         <!--
