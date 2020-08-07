@@ -19,13 +19,6 @@ public class GeoFenceHelper extends ContextWrapper {
         super(base);
     }
 
-    public GeofencingRequest getGeoFencingRequest(Geofence geofence) {
-        return new GeofencingRequest.Builder()
-                .addGeofence(geofence)
-                .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-                .build();
-    }
-
     public Geofence getGeoFence(String ID, LatLng latLng, float radius, int transitionTypes) {
         return new Geofence.Builder()
                 .setCircularRegion(latLng.latitude, latLng.longitude, radius)
@@ -36,13 +29,18 @@ public class GeoFenceHelper extends ContextWrapper {
                 .build();
     }
 
+    public GeofencingRequest getGeoFencingRequest(Geofence geofence) {
+        return new GeofencingRequest.Builder()
+                .addGeofence(geofence)
+                .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+                .build();
+    }
+
     public PendingIntent getPendingIntent() {
-        if (pendingIntent != null) {
-            return pendingIntent;
-        }
+        if (pendingIntent != null) { return pendingIntent; }
+
         Intent intent = new Intent(this, GeoFenceBroadcastReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, 2607, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         return pendingIntent;
     }
 
@@ -50,14 +48,11 @@ public class GeoFenceHelper extends ContextWrapper {
         if (e instanceof ApiException) {
             ApiException apiException = (ApiException) e;
             switch (apiException.getStatusCode()) {
-                case GeofenceStatusCodes
-                        .GEOFENCE_NOT_AVAILABLE:
+                case GeofenceStatusCodes.GEOFENCE_NOT_AVAILABLE:
                     return "GEO_FENCE NOT AVAILABLE";
-                case GeofenceStatusCodes
-                        .GEOFENCE_TOO_MANY_GEOFENCES:
+                case GeofenceStatusCodes.GEOFENCE_TOO_MANY_GEOFENCES:
                     return "GEO_FENCE TOO MANY GEO_FENCES";
-                case GeofenceStatusCodes
-                        .GEOFENCE_TOO_MANY_PENDING_INTENTS:
+                case GeofenceStatusCodes.GEOFENCE_TOO_MANY_PENDING_INTENTS:
                     return "GEO_FENCE TOO MANY PENDING INTENTS";
             }
         }

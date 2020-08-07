@@ -27,12 +27,12 @@ public class GeoFenceBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
+        int transitionType = geofencingEvent.getGeofenceTransition();
+
         List<Geofence> geoFenceList = geofencingEvent.getTriggeringGeofences();
         for (Geofence geofence: geoFenceList) {
             Log.d(TAG, "onReceive: " + geofence.getRequestId());
         }
-
-        int transitionType = geofencingEvent.getGeofenceTransition();
 
         switch (transitionType) {
             case Geofence.GEOFENCE_TRANSITION_ENTER:
